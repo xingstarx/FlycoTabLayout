@@ -13,9 +13,9 @@ import com.flyco.tablayoutsamples.adapter.SimpleHomeAdapter;
 
 public class SimpleHomeActivity extends AppCompatActivity {
     private Context mContext = this;
-    private final String[] mItems = {"SlidingTabLayout", "CommonTabLayout", "SegmentTabLayout"};
+    private final String[] mItems = {"SlidingTabLayout", "CommonTabLayout", "SegmentTabLayout", "SlidingTabLayout2"};
     private final Class<?>[] mClasses = {SlidingTabActivity.class, CommonTabActivity.class,
-            SegmentTabActivity.class};
+            SegmentTabActivity.class, SlidingTabActivity2.class};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
