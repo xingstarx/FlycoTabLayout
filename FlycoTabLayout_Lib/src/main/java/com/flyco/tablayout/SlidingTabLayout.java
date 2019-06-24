@@ -374,7 +374,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         }
     }
 
-    private void updateTabSelection(int position) {
+    public void updateTabSelection(int position) {
         for (int i = 0; i < mTabCount; ++i) {
             View tabView = mTabsContainer.getChildAt(i);
             final boolean isSelect = i == position;
