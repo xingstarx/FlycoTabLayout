@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -58,6 +59,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     private static final int STYLE_TRIANGLE = 1;
     private static final int STYLE_BLOCK = 2;
     private static final int STYLE_HORIZONTAL_ANIMATOR = 3;
+    private static final int STYLE_ROUND_TRIANGLE = 4;
     private int mIndicatorStyle = STYLE_NORMAL;
 
     private float mTabPadding;
@@ -92,6 +94,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     private static final int TEXT_BOLD_BOTH = 2;
     private static final int TEXT_BOLD_WHEN_SELECT_FONT_BIGGER = 3;
     private float mTextsize;
+    private float mIncrementTextsize;
     private int mTextSelectColor;
     private int mTextUnselectColor;
     private int mTextBold;
@@ -100,6 +103,9 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     private int mLastScrollX;
     private int mHeight;
     private boolean mSnapOnTabClick;
+    private Drawable indicatorImage;
+    private float mIndicatorImageHeight;
+    private float mIndicatorImageWidth;
 
     public SlidingTabLayout(Context context) {
         this(context, null, 0);
@@ -160,6 +166,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         mDividerPadding = ta.getDimension(R.styleable.SlidingTabLayout_tl_divider_padding, dp2px(12));
 
         mTextsize = ta.getDimension(R.styleable.SlidingTabLayout_tl_textsize, sp2px(14));
+        mIncrementTextsize = ta.getDimension(R.styleable.SlidingTabLayout_tl_increment_textsize, sp2px(4));
         mTextSelectColor = ta.getColor(R.styleable.SlidingTabLayout_tl_textSelectColor, Color.parseColor("#ffffff"));
         mTextUnselectColor = ta.getColor(R.styleable.SlidingTabLayout_tl_textUnselectColor, Color.parseColor("#AAffffff"));
         mTextBold = ta.getInt(R.styleable.SlidingTabLayout_tl_textBold, TEXT_BOLD_NONE);
@@ -168,7 +175,9 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         mTabSpaceEqual = ta.getBoolean(R.styleable.SlidingTabLayout_tl_tab_space_equal, false);
         mTabWidth = ta.getDimension(R.styleable.SlidingTabLayout_tl_tab_width, dp2px(-1));
         mTabPadding = ta.getDimension(R.styleable.SlidingTabLayout_tl_tab_padding, mTabSpaceEqual || mTabWidth > 0 ? dp2px(0) : dp2px(20));
-
+        indicatorImage = ta.getDrawable(R.styleable.SlidingTabLayout_tl_indicator_image);
+        mIndicatorImageHeight = ta.getDimension(R.styleable.SlidingTabLayout_tl_indicator_image_height, dp2px(7));
+        mIndicatorImageWidth = ta.getDimension(R.styleable.SlidingTabLayout_tl_indicator_image_width, dp2px(12));
         ta.recycle();
     }
 
@@ -376,9 +385,9 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
                 if (mTextBold == TEXT_BOLD_WHEN_SELECT) {
                     tab_title.getPaint().setFakeBoldText(isSelect);
                 } else if (mTextBold == TEXT_BOLD_WHEN_SELECT_FONT_BIGGER) {
-//                    tab_title.getPaint().setFakeBoldText(isSelect);
+                    tab_title.getPaint().setFakeBoldText(isSelect);
                     if (isSelect) {
-                        tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextsize + sp2px(4));
+                        tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextsize + mIncrementTextsize);
                     } else {
                         tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextsize);
                     }
@@ -516,6 +525,24 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
                 mTrianglePath.lineTo(paddingLeft + mIndicatorRect.right, height);
                 mTrianglePath.close();
                 canvas.drawPath(mTrianglePath, mTrianglePaint);
+            }
+        } else if (mIndicatorStyle == STYLE_ROUND_TRIANGLE) {
+            if (mIndicatorHeight > 0) {
+                mTrianglePaint.setColor(mIndicatorColor);
+                mTrianglePath.reset();
+                mTrianglePath.moveTo(paddingLeft + mIndicatorRect.left, height);
+                mTrianglePath.lineTo(paddingLeft + mIndicatorRect.left / 2 + mIndicatorRect.right / 2, height - mIndicatorHeight);
+                mTrianglePath.lineTo(paddingLeft + mIndicatorRect.right, height);
+                mTrianglePath.close();
+                if (indicatorImage != null) {
+                    int center = paddingLeft + mIndicatorRect.left / 2 + mIndicatorRect.right / 2;
+                    int left = (int) (center - mIndicatorImageWidth / 2);
+                    int top = (int) (height - mIndicatorImageHeight);
+                    indicatorImage.setBounds(left, top, (int) (left + mIndicatorImageWidth), height);
+//                    Log.e("TEST", "left == " + left + ", top == " + top + ", right == " +
+//                            (left + indicatorImage.getIntrinsicWidth()) + ", bottom == " + (top + indicatorImage.getIntrinsicHeight()));
+                    indicatorImage.draw(canvas);
+                }
             }
         } else if (mIndicatorStyle == STYLE_BLOCK) {
             if (mIndicatorHeight < 0) {

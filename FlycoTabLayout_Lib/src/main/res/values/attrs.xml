@@ -25,6 +25,7 @@
         <enum name="TRIANGLE" value="1"/>
         <enum name="BLOCK" value="2"/>
         <enum name="HORIZONTAL_ANIMATOR" value="3"/>
+        <enum name="ROUND_TRIANGLE" value="4"/>
     </attr>
     <!-- 设置显示器长度与title一样长,只有在STYLE_NORMAL并且indicatorWidth小于零有效-->
     <attr name="tl_indicator_width_equal_title" format="boolean"/>
@@ -76,8 +77,16 @@
         <enum name="BOTH" value="2"/>
         <enum name="SELECT_FONT_BIGGER" value="3"/>
     </attr>
+    <!-- 设置SELECT_FONT_BIGGER模式下选中字体增加的大小 -->
+    <attr name="tl_increment_textsize" format="dimension"/>
     <!-- 设置字体全大写 -->
     <attr name="tl_textAllCaps" format="boolean"/>
+    <!-- 设置图片指示器 -->
+    <attr name="tl_indicator_image" format="reference" />
+    <!-- 设置图片指示器高度 -->
+    <attr name="tl_indicator_image_height" format="dimension"/>
+    <!-- 设置图片指示器宽度 -->
+    <attr name="tl_indicator_image_width" format="dimension"/>
 
     <declare-styleable name="SlidingTabLayout">
         <!-- indicator -->
@@ -91,6 +100,7 @@
         <attr name="tl_indicator_corner_radius"/>
         <attr name="tl_indicator_gravity"/>
         <attr name="tl_indicator_style"/>
+        <attr name="tl_indicator_image"/>
         <attr name="tl_indicator_width_equal_title"/>
 
         <!-- underline -->
@@ -114,6 +124,9 @@
         <attr name="tl_textUnselectColor"/>
         <attr name="tl_textBold"/>
         <attr name="tl_textAllCaps"/>
+        <attr name="tl_indicator_image_height"/>
+        <attr name="tl_indicator_image_width"/>
+        <attr name="tl_increment_textsize"/>
 
     </declare-styleable>
 
