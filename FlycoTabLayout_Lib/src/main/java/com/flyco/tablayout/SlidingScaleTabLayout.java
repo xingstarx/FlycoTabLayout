@@ -200,6 +200,7 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
     private void initTransformer() {
         // 如果选中状态的文字大小和未选中状态的文字大小是不同的，开启缩放
         defaultTransformer = new TabScaleTransformer(this, mViewPager.getAdapter(), mTextsize + mIncrementTextsize, mTextsize);
+        defaultTransformer.setColor(mTextSelectColor, mTextUnselectColor);
         this.mViewPager.setPageTransformer(true, defaultTransformer);
     }
 

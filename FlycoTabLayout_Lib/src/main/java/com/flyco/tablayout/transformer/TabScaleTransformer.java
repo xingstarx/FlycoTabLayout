@@ -24,6 +24,11 @@ public class TabScaleTransformer implements ViewPager.PageTransformer {
 
     private float textUnSelectSize;
 
+    private int mTextSelectColor;
+
+    private int mTextUnselectColor;
+
+
     private List<IViewPagerTransformer> transformers = null;
 
     public TabScaleTransformer(SlidingScaleTabLayout slidingScaleTabLayout, PagerAdapter pagerAdapter,
@@ -37,7 +42,7 @@ public class TabScaleTransformer implements ViewPager.PageTransformer {
     @Override
     public void transformPage(@NonNull View view, final float position) {
         int viewOfPosition = pagerAdapter.getItemPosition(view);
-//        Log.e("TEST", "view == " + view + ", position == " + position + ", viewOfPosition == " + viewOfPosition);
+//        Log.e("TEST", ", position == " + position + ", viewOfPosition == " + viewOfPosition);
         final TextView currentTab = slidingScaleTabLayout.getTitleView(viewOfPosition);
 
         if (currentTab == null) {
@@ -48,6 +53,13 @@ public class TabScaleTransformer implements ViewPager.PageTransformer {
             @Override
             public void run() {
                 if (position >= -1 && position <= 1) { // [-1,1]
+                    if (position >= -0.5 && position <= 0.5) {
+                        currentTab.setTextColor(mTextSelectColor);
+                        currentTab.getPaint().setFakeBoldText(true);
+                    } else {
+                        currentTab.setTextColor(mTextUnselectColor);
+                        currentTab.getPaint().setFakeBoldText(false);
+                    }
                     currentTab.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSelectSize - Math.abs((textSelectSize - textUnSelectSize) * position));
                 } else {
                     currentTab.setTextSize(TypedValue.COMPLEX_UNIT_PX, textUnSelectSize);
@@ -68,5 +80,10 @@ public class TabScaleTransformer implements ViewPager.PageTransformer {
 
     public void setTransformers(List<IViewPagerTransformer> transformers) {
         this.transformers = transformers;
+    }
+
+    public void setColor(int textSelectColor, int textUnselectColor) {
+        this.mTextSelectColor = textSelectColor;
+        this.mTextUnselectColor = textUnselectColor;
     }
 }
