@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.flyco.tablayout.SlidingTabLayout;
+import com.flyco.tablayout.SlidingScaleTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.flyco.tablayoutsamples.R;
 
@@ -36,7 +36,7 @@ public class SlidingTabActivity2 extends AppCompatActivity {
         for (String title : mTitles) {
             mFragments.add(SimpleCardFragment.getInstance(title));
         }
-        SlidingTabLayout tabLayout_1 = (SlidingTabLayout) findViewById(R.id.tl_1);
+        SlidingScaleTabLayout tabLayout_1 = (SlidingScaleTabLayout) findViewById(R.id.tl_1);
         ViewPager viewPager = (ViewPager) findViewById(R.id.vp);
         mAdapter = new MyPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mAdapter);
