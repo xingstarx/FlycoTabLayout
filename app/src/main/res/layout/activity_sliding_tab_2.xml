@@ -42,7 +42,7 @@
         tl:tl_tab_space_equal="true"
         android:layout_marginLeft="8dp"
         android:background="#ffffff"
-        tl:tl_tab_width="60dp"
+        tl:tl_tab_width="90dp"
         tl:tl_textSelectColor="#4A4A4A"
         tl:tl_textUnselectColor="#666666"
         tl:tl_textsize="18dp" />

@@ -34,8 +34,12 @@ public class SlidingTabActivity2 extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sliding_tab_2);
+        int index = 0;
         for (String title : mTitles) {
-            mFragments.add(SimpleCardFragment.getInstance(title));
+            SimpleCardFragment fragment = SimpleCardFragment.getInstance(title);
+            fragment.setPosition(index);
+            index++;
+            mFragments.add(fragment);
         }
         SlidingScaleTabLayout tabLayout_1 = (SlidingScaleTabLayout) findViewById(R.id.tl_1);
         ViewPager viewPager = (ViewPager) findViewById(R.id.vp);
