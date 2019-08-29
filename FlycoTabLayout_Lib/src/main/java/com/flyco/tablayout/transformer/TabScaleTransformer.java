@@ -3,18 +3,13 @@ package com.flyco.tablayout.transformer;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingScaleTabLayout;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * tab切换
@@ -39,49 +34,12 @@ public class TabScaleTransformer implements ViewPager.PageTransformer {
         this.textUnSelectSize = textUnSelectSize;
     }
 
-    private Map<String, View> map = new LinkedHashMap<>();
-
-
-    public int getPositionFromString(String text) {
-        int count = pagerAdapter.getCount();
-        for (int index = 0; index < count; index++) {
-            if (TextUtils.equals(text, pagerAdapter.getPageTitle(index))) {
-                return index;
-            }
-        }
-        return 0;
-    }
-
-    public int getPositionFromView(View view) {
-        for (Map.Entry<String, View> entry : map.entrySet()) {
-            String key = entry.getKey();
-            View value = entry.getValue();
-            if (value == view) {
-                return getPositionFromString(key);
-            }
-        }
-        if (view instanceof ViewGroup) {
-            ViewGroup viewGroup = (ViewGroup) view;
-            if (viewGroup.getChildCount() > 0) {
-                View childView = viewGroup.getChildAt(0);
-                if (childView instanceof TextView) {
-                    TextView textView = (TextView) childView;
-                    String text = textView.getText().toString();
-                    map.put(text, view);
-                    return getPositionFromString(text);
-                }
-            }
-        }
-        return 0;
-    }
-
-
-
     @Override
     public void transformPage(@NonNull View view, final float position) {
-        int viewOfPosition = getPositionFromView(view);
-        Log.e("TEST", "position == " + position + ", viewOfPosition == " + viewOfPosition);
+        int viewOfPosition = pagerAdapter.getItemPosition(view);
+//        Log.e("TEST", "view == " + view + ", position == " + position + ", viewOfPosition == " + viewOfPosition);
         final TextView currentTab = slidingScaleTabLayout.getTitleView(viewOfPosition);
+
         if (currentTab == null) {
             return;
         }
