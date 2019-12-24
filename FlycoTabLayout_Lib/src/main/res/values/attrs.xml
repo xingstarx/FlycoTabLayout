@@ -87,6 +87,8 @@
     <attr name="tl_indicator_image_height" format="dimension"/>
     <!-- 设置图片指示器宽度 -->
     <attr name="tl_indicator_image_width" format="dimension"/>
+    <!-- 设置图片指示器画在canvas画布上的偏移高度 -->
+    <attr name="tl_indicator_image_draw_offset_height" format="dimension"/>
 
     <declare-styleable name="SlidingTabLayout">
         <!-- indicator -->
@@ -127,6 +129,7 @@
         <attr name="tl_indicator_image_height"/>
         <attr name="tl_indicator_image_width"/>
         <attr name="tl_increment_textsize"/>
+        <attr name="tl_indicator_image_draw_offset_height"/>
 
     </declare-styleable>
 

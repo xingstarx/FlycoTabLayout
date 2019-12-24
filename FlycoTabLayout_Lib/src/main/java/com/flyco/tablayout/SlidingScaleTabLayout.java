@@ -107,6 +107,7 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
     private Drawable indicatorImage;
     private float mIndicatorImageHeight;
     private float mIndicatorImageWidth;
+    private float mIndicatorImageDrawOffsetHeight;
     private TabScaleTransformer defaultTransformer;
 
     public SlidingScaleTabLayout(Context context) {
@@ -180,6 +181,7 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
         indicatorImage = ta.getDrawable(R.styleable.SlidingTabLayout_tl_indicator_image);
         mIndicatorImageHeight = ta.getDimension(R.styleable.SlidingTabLayout_tl_indicator_image_height, dp2px(7));
         mIndicatorImageWidth = ta.getDimension(R.styleable.SlidingTabLayout_tl_indicator_image_width, dp2px(12));
+        mIndicatorImageDrawOffsetHeight = ta.getDimension(R.styleable.SlidingTabLayout_tl_indicator_image_draw_offset_height, dp2px(0));
         ta.recycle();
     }
 
@@ -550,8 +552,8 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
                 if (indicatorImage != null) {
                     int center = paddingLeft + mIndicatorRect.left / 2 + mIndicatorRect.right / 2;
                     int left = (int) (center - mIndicatorImageWidth / 2);
-                    int top = (int) (height - mIndicatorImageHeight);
-                    indicatorImage.setBounds(left, top, (int) (left + mIndicatorImageWidth), height);
+                    int top = (int) (height - mIndicatorImageHeight - mIndicatorImageDrawOffsetHeight);
+                    indicatorImage.setBounds(left, top, (int) (left + mIndicatorImageWidth), (int) (height - mIndicatorImageDrawOffsetHeight));
 //                    Log.e("TEST", "left == " + left + ", top == " + top + ", right == " +
 //                            (left + indicatorImage.getIntrinsicWidth()) + ", bottom == " + (top + indicatorImage.getIntrinsicHeight()));
                     indicatorImage.draw(canvas);
