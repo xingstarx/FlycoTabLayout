@@ -27,4 +27,14 @@ public class TabEntity implements CustomTabEntity {
     public int getTabUnselectedIcon() {
         return unSelectedIcon;
     }
+
+    @Override
+    public String getTabSelectedIconByString() {
+        return null;
+    }
+
+    @Override
+    public String getTabUnSelectedIconByString() {
+        return null;
+    }
 }
