@@ -29,8 +29,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.flyco.tablayout.utils.FragmentChangeManager;
@@ -234,16 +234,16 @@ public class UnCommonTabLayout extends FrameLayout implements ValueAnimator.Anim
             //如果图标url不是空的，就用glide加载选中的和未选中的图片，缓存下来的bitmap存进map中，然后将map放入list里
             if (!TextUtils.isEmpty(tabEntity.getTabSelectedIconByString()) || !TextUtils.isEmpty(tabEntity.getTabUnSelectedIconByString())) {
                 final HashMap<String, Bitmap> hashMap = new HashMap<>();
-                Glide.with(mContext).load(tabEntity.getTabUnSelectedIconByString()).asBitmap().into(new SimpleTarget<Bitmap>() {
+                Glide.with(mContext).asBitmap().load(tabEntity.getTabUnSelectedIconByString()).into(new SimpleTarget<Bitmap>() {
                     @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
                         hashMap.put(TAB_UNSELECTED, resource);
                         notifyDataSetChanged();
                     }
                 });
-                Glide.with(mContext).load(tabEntity.getTabSelectedIconByString()).asBitmap().into(new SimpleTarget<Bitmap>() {
+                Glide.with(mContext).asBitmap().load(tabEntity.getTabSelectedIconByString()).into(new SimpleTarget<Bitmap>() {
                     @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
                         hashMap.put(TAB_SELECTED, resource);
                         notifyDataSetChanged();
                     }
