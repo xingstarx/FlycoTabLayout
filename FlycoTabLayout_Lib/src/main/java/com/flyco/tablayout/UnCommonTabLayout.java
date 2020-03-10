@@ -297,7 +297,12 @@ public class UnCommonTabLayout extends FrameLayout implements ValueAnimator.Anim
         if (TextUtils.isEmpty(mTabEntitys.get(position).getTabSelectedIconByString()) || TextUtils.isEmpty(mTabEntitys.get(position).getTabUnSelectedIconByString())) {
             iv_tab_icon.setImageResource(resourceImg);
         } else {
-            Bitmap bitmap = (Bitmap) bitmapResource.get(position).get(TAB_UNSELECTED);
+            Bitmap bitmap = null;
+            try {
+                bitmap = (Bitmap) bitmapResource.get(position).get(TAB_UNSELECTED);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             if (bitmap != null) {
                 iv_tab_icon.setImageBitmap(bitmap);
             } else {
