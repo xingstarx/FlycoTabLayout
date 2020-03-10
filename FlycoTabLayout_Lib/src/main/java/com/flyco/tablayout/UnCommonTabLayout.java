@@ -357,9 +357,14 @@ public class UnCommonTabLayout extends FrameLayout implements ValueAnimator.Anim
                 if (TextUtils.isEmpty(tabEntity.getTabSelectedIconByString()) || TextUtils.isEmpty(tabEntity.getTabUnSelectedIconByString())) {
                     iv_tab_icon.setImageResource(i == mCurrentTab ? tabEntity.getTabSelectedIcon() : tabEntity.getTabUnselectedIcon());
                 } else {
-                    Bitmap sBitmap, uBitmap;
-                    sBitmap = (Bitmap) bitmapResource.get(i).get(TAB_SELECTED);
-                    uBitmap = (Bitmap) bitmapResource.get(i).get(TAB_UNSELECTED);
+                    Bitmap sBitmap = null;
+                    Bitmap uBitmap = null;
+                    try {
+                        sBitmap = (Bitmap) bitmapResource.get(i).get(TAB_SELECTED);
+                        uBitmap = (Bitmap) bitmapResource.get(i).get(TAB_UNSELECTED);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     if (sBitmap != null && uBitmap != null) {
                         iv_tab_icon.setImageBitmap(i == mCurrentTab ? sBitmap : uBitmap);
                     } else {
@@ -399,9 +404,14 @@ public class UnCommonTabLayout extends FrameLayout implements ValueAnimator.Anim
             if (TextUtils.isEmpty(tabEntity.getTabSelectedIconByString()) || TextUtils.isEmpty(tabEntity.getTabUnSelectedIconByString())) {
                 iv_tab_icon.setImageResource(i == mCurrentTab ? tabEntity.getTabSelectedIcon() : tabEntity.getTabUnselectedIcon());
             } else {
-                Bitmap sBitmap, uBitmap;
-                sBitmap = (Bitmap) bitmapResource.get(i).get(TAB_SELECTED);
-                uBitmap = (Bitmap) bitmapResource.get(i).get(TAB_UNSELECTED);
+                Bitmap sBitmap = null;
+                Bitmap uBitmap = null;
+                try {
+                    sBitmap = (Bitmap) bitmapResource.get(i).get(TAB_SELECTED);
+                    uBitmap = (Bitmap) bitmapResource.get(i).get(TAB_UNSELECTED);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 if (sBitmap != null && uBitmap != null) {
                     iv_tab_icon.setImageBitmap(i == mCurrentTab ? sBitmap : uBitmap);
                 } else {
